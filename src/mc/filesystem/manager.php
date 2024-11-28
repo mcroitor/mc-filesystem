@@ -9,22 +9,22 @@ class manager {
 
     public static function normalize(string $path, string $separator = self::US): string
     {
-        if ($separator === self::US) {
-            return self::to_unix($path);
-        } elseif ($separator === self::WS) {
-            return self::to_windows($path);
+        $back = $separator === self::US ? self::WS : self::US;
+        $path = str_replace($back, $separator, $path);
+        while(strpos($path, $separator . $separator) !== false) {
+            $path = str_replace($separator . $separator, $separator, $path);
         }
         return $path;
     }
 
     public static function to_unix(string $path): string
     {
-        return str_replace(self::WS, self::US, $path);
+        return self::normalize($path, self::US);
     }
 
     public static function to_windows(string $path): string
     {
-        return str_replace(self::US, self::WS, $path);
+        return self::normalize($path, self::WS);
     }
 
     public static function root(string $path, string $separator = self::US): string
