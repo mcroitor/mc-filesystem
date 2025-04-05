@@ -7,10 +7,9 @@ class manager {
     public const US = "/";
     public const WS = "\\";
 
-    public static function normalize(string $path, string $separator = self::US): string
+    public static function normalize(string $path, string $separator = DIRECTORY_SEPARATOR): string
     {
-        $back = $separator === self::US ? self::WS : self::US;
-        $path = str_replace($back, $separator, $path);
+        $path = str_replace([self::US, self::WS], $separator, $path);
         while(strpos($path, $separator . $separator) !== false) {
             $path = str_replace($separator . $separator, $separator, $path);
         }
@@ -27,7 +26,7 @@ class manager {
         return self::normalize($path, self::WS);
     }
 
-    public static function root(string $path, string $separator = self::US): string
+    public static function root(string $path, string $separator = DIRECTORY_SEPARATOR): string
     {
         $path = self::normalize($path, $separator);
         $chunks = explode($separator, $path);
@@ -35,7 +34,7 @@ class manager {
         return implode($separator, $chunks);
     }
 
-    public static function children(string $path, string $separator = self::US): string
+    public static function children(string $path, string $separator = DIRECTORY_SEPARATOR): string
     {
         $path = self::normalize($path, $separator);
         $chunks = explode($separator, $path);
@@ -43,7 +42,7 @@ class manager {
         return $last;
     }
 
-    public static function implode(array $chunks, string $separator = self::US): string
+    public static function implode(array $chunks, string $separator = DIRECTORY_SEPARATOR): string
     {
         $result = [];
         

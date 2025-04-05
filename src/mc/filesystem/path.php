@@ -49,4 +49,20 @@ class path {
     public function is_link() : bool {
         return is_link($this->path);
     }
+
+    public function is_readable() : bool {
+        return is_readable($this->path);
+    }
+
+    public function is_writable() : bool {
+        return is_writable($this->path);
+    }
+
+    public function is_executable() : bool {
+        return is_executable($this->path);
+    }
+
+    public function size() : int {
+        return filesize($this->path);
+    }
 }
