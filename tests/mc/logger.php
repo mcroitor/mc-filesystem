@@ -1,13 +1,13 @@
 <?php
 
-namespace mc;
+namespace Mc;
 
 /**
  * Description of log
  *
  * @author Croitor Mihail <mcroitor@gmail.com>
  */
-class logger {
+class Logger {
 
     public const INFO = 1;  // standard color
     public const PASS = 2;  // green color
@@ -23,7 +23,7 @@ class logger {
         self::FAIL => "FAIL"
     ];
 
-    var $logfile;
+    private string $logfile;
 
     /**
      * 
@@ -38,7 +38,7 @@ class logger {
      * @param string $data
      * @param string $log_type
      */
-    private function write(string $data,string  $log_type) {
+    private function Write(string $data,string  $log_type) {
         if (isset($_SESSION["timezone"])) {
             date_default_timezone_set($_SESSION["timezone"]);
         }
@@ -51,47 +51,47 @@ class logger {
      * info message
      * @param string $data
      */
-    public function info(string $data) {
-        $this->write($data, self::INFO);
+    public function Info(string $data) {
+        $this->Write($data, self::INFO);
     }
 
     /**
      * warn message
      * @param string $data
      */
-    public function warn(string $data) {
-        $this->write($data, self::WARN);
+    public function Warn(string $data) {
+        $this->Write($data, self::WARN);
     }
 
     /**
      * pass message
      * @param string $data
      */
-    public function pass(string $data) {
-        $this->write($data, self::PASS);
+    public function Pass(string $data) {
+        $this->Write($data, self::PASS);
     }
 
     /**
      * error message
      * @param string $data
      */
-    public function error(string $data) {
-        $this->write($data, self::ERROR);
+    public function Error(string $data) {
+        $this->Write($data, self::ERROR);
     }
 
     /**
      * fail message
      * @param string $data
      */
-    public function fail(string $data) {
-        $this->write($data, self::FAIL);
+    public function Fail(string $data) {
+        $this->Write($data, self::FAIL);
     }
 
     /**
      * stdout logger builder
-     * @return \mc\logger
+     * @return \Mc\Logger
      */
-    public static function stdout(){
-        return new logger();
+    public static function StdOut(): Logger{
+        return new Logger();
     }
 }

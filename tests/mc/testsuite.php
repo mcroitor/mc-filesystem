@@ -1,9 +1,13 @@
 <?php
 
-namespace mc;
+namespace Mc;
+
+use Mc\Test;
+use Mc\Assert;
+use Mc\Logger;
 
 class TestSuite {
-    private $tests = [];
+    private array $tests = [];
     private string $name; 
     private int $failedTestsCount = 0;
 
@@ -13,49 +17,49 @@ class TestSuite {
         $this->tests = $tests;
     }
 
-    public static function create(string $name) {
+    public static function Create(string $name): TestSuite {
         return new TestSuite($name);
     }
 
-    public function getName(){
+    public function GetName(): string{
         return $this->name;
     }
 
-    public function getTests() {
+    public function GetTests(): array {
         return $this->tests;
     }
 
-    public function add(Test $test) {
-        $tests = $this->getTests();
+    public function Add(Test $test): TestSuite {
+        $tests = $this->GetTests();
         $tests[] = $test;
         return new TestSuite($this->getName(), $tests);
     }
 
-    public function run(){
-        \mc\Assert::resetCounts();
-        \mc\logger::stdout()->info("+++ Run test suite " . $this->getName() . " +++");
+    public function Run(): void{
+        Assert::resetCounts();
+        Logger::StdOut()->info("+++ Run test suite " . $this->GetName() . " +++");
 
         foreach($this->getTests() as $test){
-            $fails = \mc\Assert::failed();
-            $exceptions = \mc\Assert::excepted();
-            $test->run();
-            if($fails != \mc\Assert::failed() || $exceptions != \mc\Assert::excepted()){
+            $fails = Assert::failed();
+            $exceptions = Assert::excepted();
+            $test->Run();
+            if($fails != Assert::failed() || $exceptions != Assert::excepted()){
                 ++ $this->failedTestsCount;
             }
         }
 
-        $this->stat();
-        \mc\logger::stdout()->info("+++ Done test suite " . $this->getName() . " +++");
+        $this->Stat();
+        Logger::StdOut()->Info("+++ Done test suite " . $this->GetName() . " +++");
     }
 
-    public function stat() {
-        \mc\logger::stdout()->info("============== ASSERTS ================");
-        \mc\logger::stdout()->info("asserts pass: " . \mc\Assert::passed());
-        \mc\logger::stdout()->info("asserts fail: " . \mc\Assert::failed());
-        \mc\logger::stdout()->info("asserts excepted: " . \mc\Assert::excepted());
-        \mc\logger::stdout()->info("asserts total: " . \mc\Assert::total());
-        \mc\logger::stdout()->info("=============== TESTS ================");
-        \mc\logger::stdout()->info("tests failed: " . $this->failedTestsCount);
-        \mc\logger::stdout()->info("tests total: " . count($this->tests));
+    public function Stat() {
+        Logger::StdOut()->Info("============== ASSERTS ================");
+        Logger::StdOut()->Info("asserts pass: " . Assert::passed());
+        Logger::StdOut()->Info("asserts fail: " . Assert::failed());
+        Logger::StdOut()->Info("asserts excepted: " . Assert::excepted());
+        Logger::StdOut()->Info("asserts total: " . Assert::total());
+        Logger::StdOut()->Info("=============== TESTS ================");
+        Logger::StdOut()->Info("tests failed: " . $this->failedTestsCount);
+        Logger::StdOut()->Info("tests total: " . count($this->tests));
     }
 }

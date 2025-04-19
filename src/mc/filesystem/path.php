@@ -1,8 +1,10 @@
 <?php
 
-namespace mc\filesystem;
+namespace Mc\Filesystem;
 
-class path {
+use Mc\Filesystem\Manager;
+
+class Path {
 
     private $path;
 
@@ -10,59 +12,59 @@ class path {
     {
         $p = $path;
         if (is_array($path)) {
-            $p = \mc\filesystem\manager::implode($path);
+            $p = Manager::Implode($path);
         }
-        $this->path = \mc\filesystem\manager::normalize($p);
+        $this->path = Manager::normalize($p);
     }
 
-    public function filename(): string {
-        return \mc\filesystem\manager::children($this->path);
+    public function Filename(): string {
+        return Manager::Children($this->path);
     }
 
-    public function extension(): string {
+    public function Extension(): string {
         $filename = $this->filename();
         $chunks = explode(".", $filename);
         return end($chunks);
     }
 
-    public function parent(): string {
-        return \mc\filesystem\manager::root($this->path);
+    public function Parent(): string {
+        return Manager::Root($this->path);
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->path;
     }
 
-    public function exists() : bool {
+    public function Exists() : bool {
         return file_exists($this->path);
     }
 
-    public function is_file() : bool {
+    public function IsFile() : bool {
         return is_file($this->path);
     }
 
-    public function is_dir() : bool {
+    public function IsDir() : bool {
         return is_dir($this->path);
     }
 
-    public function is_link() : bool {
+    public function IsLink() : bool {
         return is_link($this->path);
     }
 
-    public function is_readable() : bool {
+    public function IsReadable() : bool {
         return is_readable($this->path);
     }
 
-    public function is_writable() : bool {
+    public function IsWritable() : bool {
         return is_writable($this->path);
     }
 
-    public function is_executable() : bool {
+    public function IsExecutable() : bool {
         return is_executable($this->path);
     }
 
-    public function size() : int {
+    public function Size() : int {
         return filesize($this->path);
     }
 }

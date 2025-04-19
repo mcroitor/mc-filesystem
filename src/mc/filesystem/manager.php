@@ -1,13 +1,13 @@
 <?php
 
-namespace mc\filesystem;
+namespace Mc\Filesystem;
 
-class manager {
+class Manager {
 
     public const US = "/";
     public const WS = "\\";
 
-    public static function normalize(string $path, string $separator = DIRECTORY_SEPARATOR): string
+    public static function Normalize(string $path, string $separator = DIRECTORY_SEPARATOR): string
     {
         $path = str_replace([self::US, self::WS], $separator, $path);
         while(strpos($path, $separator . $separator) !== false) {
@@ -16,38 +16,38 @@ class manager {
         return $path;
     }
 
-    public static function to_unix(string $path): string
+    public static function ToUnix(string $path): string
     {
-        return self::normalize($path, self::US);
+        return self::Normalize($path, self::US);
     }
 
-    public static function to_windows(string $path): string
+    public static function ToWindows(string $path): string
     {
-        return self::normalize($path, self::WS);
+        return self::Normalize($path, self::WS);
     }
 
-    public static function root(string $path, string $separator = DIRECTORY_SEPARATOR): string
+    public static function Root(string $path, string $separator = DIRECTORY_SEPARATOR): string
     {
-        $path = self::normalize($path, $separator);
+        $path = self::Normalize($path, $separator);
         $chunks = explode($separator, $path);
         $last = array_pop($chunks);
         return implode($separator, $chunks);
     }
 
-    public static function children(string $path, string $separator = DIRECTORY_SEPARATOR): string
+    public static function Children(string $path, string $separator = DIRECTORY_SEPARATOR): string
     {
-        $path = self::normalize($path, $separator);
+        $path = self::Normalize($path, $separator);
         $chunks = explode($separator, $path);
         $last = array_pop($chunks);
         return $last;
     }
 
-    public static function implode(array $chunks, string $separator = DIRECTORY_SEPARATOR): string
+    public static function Implode(array $chunks, string $separator = DIRECTORY_SEPARATOR): string
     {
         $result = [];
         
         foreach ($chunks as $chunk) {
-            $chunk = self::normalize($chunk, $separator);
+            $chunk = self::Normalize($chunk, $separator);
             $result = array_merge($result, explode($separator, $chunk));
         }
         return implode($separator, $result);
