@@ -1,0 +1,20 @@
+{
+    "name": "mcroitor/mc-filesystem",
+    "description": "Simple wrapper for PHP's filesystem functions.",
+    "type": "library",
+    "license": " GPL-3.0 license",
+    "authors": [
+        {
+            "name": "mcroitor",
+            "homepage": "https://github.com/mcroitor"
+        }
+    ],
+    "require": {
+        "php": ">=8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mc\\Filesystem": "src/mc/filesystem"
+        }
+    }
+}
