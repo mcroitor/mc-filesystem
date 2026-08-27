@@ -4,12 +4,12 @@ Simple wrapper for PHP's filesystem functions.
 
 ## Interface
 
-### path class
+### Path class
 
 ```php
-namespace mc\filesystem;
+namespace Mc\Filesystem;
 
-class path {
+class Path {
 
     public function __construct(string | array $path);
 
@@ -23,37 +23,37 @@ class path {
 
     public function exists() : bool;
 
-    public function is_file() : bool;
+    public function isFile() : bool;
 
-    public function is_dir() : bool;
+    public function isDir() : bool;
 
-    public function is_link() : bool;
+    public function isLink() : bool;
 
-    public function is_readable() : bool;
+    public function isReadable() : bool;
 
-    public function is_writable() : bool;
+    public function isWritable() : bool;
 
-    public function is_executable() : bool;
+    public function isExecutable() : bool;
 
     public function size() : int;
 }
 ```
 
-### manager class
+### Manager class
 
 ```php
-namespace mc\filesystem;
+namespace Mc\Filesystem;
 
-class manager {
+class Manager {
 
     public const US = "/";
     public const WS = "\\";
 
     public static function normalize(string $path, string $separator = DIRECTORY_SEPARATOR): string;
 
-    public static function to_unix(string $path): string;
+    public static function toUnix(string $path): string;
 
-    public static function to_windows(string $path): string;
+    public static function toWindows(string $path): string;
     public static function root(string $path, string $separator = DIRECTORY_SEPARATOR): string;
 
     public static function children(string $path, string $separator = DIRECTORY_SEPARATOR): string;

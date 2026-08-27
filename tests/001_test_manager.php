@@ -10,8 +10,6 @@ use Mc\Assert;
 use Mc\Test;
 use Mc\TestSuite;
 use Mc\Filesystem\Manager as FilesystemManager;
-use Mc\Filesystem\Path as FilesystemPath;
-use Mc\Filesystem\Path as Path;
 use Mc\Logger;
 
 TestSuite::Create("001: test filesystem manager")->Add(
@@ -22,7 +20,7 @@ TestSuite::Create("001: test filesystem manager")->Add(
             $path = "./this/is/a/test/";
             $expectedResult = "./this/is/a/test/";
 
-            $result = FilesystemManager::Normalize($path, FilesystemManager::US);
+            $result = FilesystemManager::normalize($path, FilesystemManager::US);
             $logger->Info("Path: {$result}");
             $logger->Info("Expected: {$expectedResult}");
             $logger->Info("Result: {$result}");
@@ -47,7 +45,7 @@ TestSuite::Create("001: test filesystem manager")->Add(
             $path = "drive\\this/is\\another\\test\\";
             $expectedResult = "drive/this/is/another/test/";
 
-            $result = FilesystemManager::Normalize($path, FilesystemManager::US);
+            $result = FilesystemManager::normalize($path, FilesystemManager::US);
             Assert::equal($expectedResult, $result);
         }
     )
@@ -59,7 +57,7 @@ TestSuite::Create("001: test filesystem manager")->Add(
             $path = "./this/is/a/test/with/cool/file.txt";
             $expectedRoot = "./this/is/a/test/with/cool";
 
-            $root = FilesystemManager::Root($path, FilesystemManager::US);
+            $root = FilesystemManager::root($path, FilesystemManager::US);
             $logger->Info("Root: {$root}");
             $logger->Info("Expected: {$expectedRoot}");
             Assert::equal($expectedRoot, $root);
@@ -72,7 +70,7 @@ TestSuite::Create("001: test filesystem manager")->Add(
             $path = "./this////is/a/test\\\with///cool/file.txt";
             $expectedResult = "./this/is/a/test/with/cool/file.txt";
 
-            $normalizedPath = FilesystemManager::Normalize($path, FilesystemManager::US);
+            $normalizedPath = FilesystemManager::normalize($path, FilesystemManager::US);
             Assert::equal($expectedResult, $normalizedPath);
         }
     )
@@ -83,7 +81,7 @@ TestSuite::Create("001: test filesystem manager")->Add(
             $chunks = ["this", "is", "a", "test", "path"];
             $expectedPath = "this/is/a/test/path";
 
-            $path = FilesystemManager::Implode($chunks, FilesystemManager::US);
+            $path = FilesystemManager::implode($chunks, FilesystemManager::US);
             Assert::equal($expectedPath, $path);
         }
     )

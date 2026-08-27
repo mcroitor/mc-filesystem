@@ -14,7 +14,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Mc\\Filesystem": "src/mc/filesystem"
+            "Mc": "src/Mc"
         }
     }
 }
